@@ -80,12 +80,13 @@ maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2}, computing 
 exactly in $\Qroot$. Independently of \textup{H2}, we show, with explicit witnesses on
 words of length up to~$4$, that the endpoint quotient and the shadow quotient of this
 automaton are mutually incomparable, and that relabelling $X\leftrightarrow X^{-1}$
-transports the endpoint by an exact group automorphism, forcing every weighted
-uniform-probe phase sum over histories sharing a final $b_n$ to be real. Under
-\textup{H2}, we report a bounded exact search, on words of length up to~$8$, finding no
-destructive cancellation among such histories. No result here concerns the Born rule, a
-complex carrier, or a coherent-sum construction; each remains exactly as open as it was
-in the companion note this paper succeeds~\cite{Beau2026steft}.
+transports the endpoint by an exact group automorphism, forcing every uniform-probe
+phase sum weighted by a real shadow-only valuation, over histories sharing a final
+$b_n$, to be real. Under \textup{H2}, we report a bounded exact search, on words of
+length up to~$8$, finding no destructive cancellation among such histories. No result
+here establishes a Born rule, selects a complex carrier, or constructs a coherent sum;
+each remains exactly as open as it was in the companion note this paper
+succeeds~\cite{Beau2026steft}.
 \end{abstract}
 
 \noindent\textbf{Keywords.}
@@ -165,8 +166,9 @@ This paper establishes:
   \item exact witnesses, on words of length up to~$4$, that the endpoint quotient and the
   shadow quotient of the automaton are mutually incomparable (Section~\ref{sec:quotients});
   \item an exact group-automorphism transport of the endpoint under $X\leftrightarrow
-  X^{-1}$ relabelling, and its corollary that every weighted uniform-probe phase sum over
-  histories sharing a final $b_n$ is real (Section~\ref{sec:search});
+  X^{-1}$ relabelling, and its corollary that every uniform-probe phase sum weighted by a
+  real shadow-only valuation, over histories sharing a final $b_n$, is real
+  (Section~\ref{sec:search});
   \item conjugate covariance of the phase diagnostic, and a bounded exact search, on
   words of length up to~$8$, finding no destructive cancellation among histories sharing
   a final $b_n$ (Section~\ref{sec:search}).
@@ -448,11 +450,14 @@ is a different object.
   process, but at the cost of the renormalisation constants accumulating along the
   history rather than factoring through a single global constant, so
   $\mu_n^{\mathrm{esc},\alpha}$ is not simply a rescaled $\mu_n^\alpha$ except in the
-  degenerate case that $Z_i$ does not depend on $i$. For the automaton of
-  Section~\ref{sec:automaton} under \textup{H2} (Section~\ref{sec:h2}), state $0$ has
-  three admissible successors while $\pm$ each have two, so equality of $Z_0$ and
-  $Z_{\pm}$ across every row of~\eqref{eq:P-exact} would be a coincidence of that
-  specific kernel, not something forced by the construction; this paper does not compute
+  special case that $Z_i$ does not depend on $i$ --- a condition that can hold on a
+  perfectly non-degenerate chain (for instance whenever every row of $P^\alpha$ shares
+  the same probability profile up to permutation), so it should not be read as
+  pathological. For the automaton of Section~\ref{sec:automaton} under \textup{H2}
+  (Section~\ref{sec:h2}), state $0$ has three admissible successors while $\pm$ each
+  have two, so equality of $Z_0$ and $Z_{\pm}$ across every row of~\eqref{eq:P-exact}
+  would be a coincidence of that specific kernel, not something forced by the
+  construction; this paper does not compute
   the $Z_i$ exactly and does not need to, since Proposition~\ref{prop:escort-differs}'s
   qualitative conclusion already suffices. This paper's contribution is accordingly not
   the elementary inequality of Lemma~\ref{lem:power-compare} taken in isolation, but:
