@@ -57,17 +57,20 @@
 \begin{abstract}
 A finite branching system is a finite set of local states equipped with an admissibility
 relation and a row-stochastic transition kernel. From an initial law, such a system
-induces a canonical positive valuation on admissible histories. We prove that this
+induces a canonical positive valuation on admissible histories. We prove that, whenever
+at least one branching state is reachable by a history of positive $\mu$-valuation, this
 valuation is the unique member of its own power-lift family, $\mu^\alpha$ for
 $\alpha>0$, that is \emph{Kolmogorov-consistent}: summing the lifted weight of every
 admissible one-step extension of a history recovers the lifted weight of the history
 itself, so that $\{\mu_n^\alpha\}_n$ forms a projective family of measures. The proof is
 an elementary comparison of $x^\alpha$ against $x$ on $[0,1]$, strict at every state with
-at least two admissible successors. Consequently, no unnormalised pointwise power lift of
-a non-degenerate branching measure remains a projective family of measures; in particular
-the square-root modulus does not inherit classical cylinder consistency from the
-underlying measure. This does \emph{not} obstruct the use of such a lift as an amplitude
-modulus unless that modulus is additionally required to obey classical additive
+at least two positive-probability successors. Consequently, no unnormalised pointwise
+power lift of a branching measure whose positive-valuation support reaches a branching
+state remains a projective family of measures; in particular the square-root modulus
+does not inherit classical cylinder consistency from the underlying measure whenever it
+branches on that support. This does \emph{not} obstruct the use of such a lift as an
+amplitude modulus unless that modulus is additionally required to obey classical
+additive
 marginalisation: a row-renormalised (``escort'') power lift restores Kolmogorov
 consistency trivially, at the cost of generally no longer coinciding with the pointwise
 lift once path-dependent normalisation factors accumulate
@@ -76,8 +79,9 @@ nonextensive statistical mechanics~\cite{Abe2000,TsallisPlastinoAlvarezEstrada20
 situated here, not claimed as new in isolation. We instantiate the unnormalised
 obstruction on the non-backtracking Heisenberg-word automaton of the Cosmochrony
 trajectory-branching programme~\cite{Beau2026tb}, under an explicitly named, non-derived
-maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2}, computing it
-exactly in $\Qroot$. Independently of \textup{H2}, we show, with explicit witnesses on
+maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2}, giving an exact
+real-algebraic proof that certifies every radicand in $\Qroot$. Independently of
+\textup{H2}, we show, with explicit witnesses on
 words of length up to~$4$, that the endpoint quotient and the shadow quotient of this
 automaton are mutually incomparable, and that relabelling $X\leftrightarrow X^{-1}$
 transports the endpoint by an exact group automorphism, forcing every uniform-probe
@@ -119,15 +123,20 @@ lifted weights of its one-step admissible extensions, exactly as an ordinary
 probability measure on a growing history space must satisfy the marginal consistency
 required by the Kolmogorov extension theorem~\cite{Billingsley1995}. We call this
 property \emph{Kolmogorov consistency} for a family of history weights (Definition
-\ref{def:consistency}).
+\ref{def:consistency}). This identity expresses no causal dependence of an earlier
+history on its later continuations: it identifies the cylinder determined by the
+earlier history with the disjoint union of its one-step refinements, exactly as
+required for $\{w_n\}_n$ to be the restrictions of a single measure on the full history
+space.
 
 The main result (Theorem~\ref{thm:main}) is that Kolmogorov consistency holds for the
 power-lift family $\mu^\alpha$ of a finite branching measure $\mu$ if and only if
-$\alpha=1$, at every state of the system with at least two admissible successors. In
-particular the square-root lift, $\alpha=1/2$, fails this consistency whenever the
-system branches at all. The obstruction is elementary, general, and has nothing to do
-with phase, complex numbers, or the Born rule: it is a fact about positive numbers and
-sums.
+$\alpha=1$, at every state with at least two positive-probability successors whose
+branching is actually reached by a history of positive $\mu$-valuation. In particular
+the square-root lift, $\alpha=1/2$, fails this consistency whenever the
+positive-valuation support reaches a branching state. The obstruction is elementary,
+general, and has nothing to do with phase, complex numbers, or the Born rule: it is a
+fact about positive numbers and sums.
 
 The motivating context is the Cosmochrony research programme's search for a bridge
 between spectral admissibility and quantum amplitude structure. The companion note
@@ -316,8 +325,8 @@ canonical candidate for reading $\mu$ as an amplitude modulus, since $\vert \mu^
   strictly greater than $1$ if $0<\alpha<1$ and strictly less than $1$ if $\alpha>1$.
   Consequently the $\alpha$-power-lift family $\{\mu_n^\alpha\}_n$ of
   Definition~\ref{def:lift} is Kolmogorov-consistent (Definition~\ref{def:consistency})
-  if and only if $\alpha=1$, or the system has no branching state reachable within the
-  histories considered.
+  if and only if $\alpha=1$, or no branching state is reachable by a history of
+  positive $\mu$-valuation.
 \end{theorem}
 
 \begin{proof}
@@ -415,31 +424,34 @@ is a different object.
 \begin{proposition}[Escort valuations generally differ from the pointwise lift by a
   path-dependent factor]
   \label{prop:escort-differs}
-  Write $Z_i := \sum_k P_{ik}^\alpha$. For an admissible history $s=(s_1,\dots,s_n)$
-  with $\mu_n(s)>0$,
+  Write $Z_i := \sum_k P_{ik}^\alpha$ and $Z_\nu := \sum_j \nu(j)^\alpha$ (a constant
+  depending on $\nu$ alone, not on $s_1$). For an admissible history
+  $s=(s_1,\dots,s_n)$ with $\mu_n(s)>0$,
   \begin{equation}
     \label{eq:escort-vs-lift}
-    \mu_n^{\mathrm{esc},\alpha}(s) \;=\; \frac{\mu_n(s)^\alpha}{Z_{s_1}^{\ast}\,
-    Z_{s_1} Z_{s_2} \cdots Z_{s_{n-1}}}, \qquad Z_{s_1}^{\ast} := \sum_j \nu(j)^\alpha,
+    \mu_n^{\mathrm{esc},\alpha}(s) \;=\; \frac{\mu_n(s)^\alpha}{Z_\nu\,
+    Z_{s_1} Z_{s_2} \cdots Z_{s_{n-1}}},
   \end{equation}
   so $\mu_n^{\mathrm{esc},\alpha}(s)$ equals $\mu_n(s)^\alpha$ up to an overall constant
-  for every admissible $s$ of length $n$ if and only if $Z_{s_1}\cdots Z_{s_{n-1}}$ takes
-  the same value on every history of length $n$ reachable with positive $\mu_n$-weight
-  --- in particular if $Z_i$ is constant across all reachable states $i$, but not in
-  general.
+  for every admissible $s$ of length $n$ if and only if the path product
+  $Z_{s_1}\cdots Z_{s_{n-1}}$ takes the same value on every history of length $n$
+  reachable with positive $\mu_n$-weight --- the necessary and sufficient condition.
+  A sufficient special case is that $Z_i$ is constant across all reachable states $i$,
+  but the path-product condition is strictly weaker and can hold without it.
 \end{proposition}
 
 \begin{proof}
   Unwinding Definition~\ref{def:escort}: $\nu^{(\alpha)}(s_1) = \nu(s_1)^\alpha /
-  Z_{s_1}^\ast$, and for $k=2,\dots,n$, $Q^{(\alpha)}_{s_{k-1}s_k} =
+  Z_\nu$, and for $k=2,\dots,n$, $Q^{(\alpha)}_{s_{k-1}s_k} =
   P_{s_{k-1}s_k}^\alpha / Z_{s_{k-1}}$. Multiplying these $n$ factors gives numerator
   $\nu(s_1)^\alpha \prod_{k=2}^n P_{s_{k-1}s_k}^\alpha = \mu_n(s)^\alpha$ and
-  denominator $Z_{s_1}^\ast \prod_{k=2}^{n} Z_{s_{k-1}} = Z_{s_1}^\ast\, Z_{s_1} Z_{s_2}
+  denominator $Z_\nu \prod_{k=2}^{n} Z_{s_{k-1}} = Z_\nu\, Z_{s_1} Z_{s_2}
   \cdots Z_{s_{n-1}}$, proving~\eqref{eq:escort-vs-lift}. The denominator is a function
   of the specific sequence of states $s_1,\dots,s_{n-1}$ visited by $s$, not merely of
   $n$ or of $\mu_n(s)$; two histories of length $n$ visiting different state sequences
-  before $s_n$ therefore divide $\mu_n(s)^\alpha$ by different constants unless every
-  $Z_i$, $i\in\Sh$, coincides.
+  before $s_n$ therefore divide $\mu_n(s)^\alpha$ by different constants unless the
+  path-product condition of the Proposition holds along both --- a sufficient special
+  case being that every $Z_i$, $i\in\Sh$, coincides.
 \end{proof}
 
 \begin{remark}[What this section adds and what it does not claim]
@@ -449,11 +461,12 @@ is a different object.
   literature: renormalising a power-transformed kernel restores a bona fide stochastic
   process, but at the cost of the renormalisation constants accumulating along the
   history rather than factoring through a single global constant, so
-  $\mu_n^{\mathrm{esc},\alpha}$ is not simply a rescaled $\mu_n^\alpha$ except in the
-  special case that $Z_i$ does not depend on $i$ --- a condition that can hold on a
-  perfectly non-degenerate chain (for instance whenever every row of $P^\alpha$ shares
-  the same probability profile up to permutation), so it should not be read as
-  pathological. For the automaton of Section~\ref{sec:automaton} under \textup{H2}
+  $\mu_n^{\mathrm{esc},\alpha}$ is not simply a rescaled $\mu_n^\alpha$ unless the
+  Proposition's path-product condition holds --- a sufficient special case being that
+  $Z_i$ does not depend on $i$, a condition that can hold on a perfectly non-degenerate
+  chain (for instance whenever every row of $P^\alpha$ shares the same probability
+  profile up to permutation), so it should not be read as pathological. For the
+  automaton of Section~\ref{sec:automaton} under \textup{H2}
   (Section~\ref{sec:h2}), state $0$ has three admissible successors while $\pm$ each
   have two, so equality of $Z_0$ and $Z_{\pm}$ across every row of~\eqref{eq:P-exact}
   would be a coincidence of that specific kernel, not something forced by the
@@ -482,9 +495,11 @@ $\gamma=(g_1,\dots,g_n)$ over the Heisenberg generating set
 $S=\{X^{\pm1},Y^{\pm1}\}$, identified with paths $u_0=e$, $u_k=u_{k-1}g_k$ in
 $\Heis$. The \emph{$b$-shadow} emission alphabet is $\Sh=\{0,+,-\}$: $X^{\pm1}$ emit
 $0$, $Y$ emits $+$, $Y^{-1}$ emits $-$. Non-backtracking forbids only the immediate
-letter-inverse pair, which after merging $X,X^{-1}$ into the single class $0$ (a
-bijection of the word language, since it preserves every $b$-emission~\cite{Beau2026tb})
-yields the admissibility matrix
+letter-inverse pair. Projecting $X$ and $X^{-1}$ onto the common emission $0$ yields the
+shadow language described below by $M$; the involution $X\leftrightarrow X^{-1}$ shows
+that the two sign states have identical shadow continuation
+languages~\cite{Beau2026tb}, but the word-to-shadow projection itself is generally
+many-to-one, yielding the admissibility matrix
 \begin{equation}
   \label{eq:M}
   M \;=\; \begin{pmatrix} 1&1&1\\ 1&1&0\\ 1&0&1 \end{pmatrix},
@@ -500,10 +515,22 @@ with Perron root and right eigenvector
 The trajectory-branching note proves that $M$, the Pell recurrence, and $\lambda,r$ are
 exact consequences of the non-backtracking word combinatorics; it proves \emph{no}
 normalised transition law, stochastic kernel, or stationary measure on $\Sh$. No such
-law is supplied elsewhere in the deposited corpus either: an exact two-parameter
-counterfamily of primitive, sign-symmetric Markov kernels on the same support gives
-distinct stationary laws, so support, primitivity, and the Pell recurrence alone do not
-select one.
+law is supplied elsewhere in the deposited corpus either: for every $a,b\in(0,1)$,
+\begin{equation}
+  \label{eq:counterfamily}
+  K(a,b) = \begin{pmatrix} a & \tfrac{1-a}{2} & \tfrac{1-a}{2} \\ b & 1-b & 0 \\ b & 0 & 1-b \end{pmatrix}
+\end{equation}
+is a primitive, sign-symmetric ($+\leftrightarrow-$) Markov kernel on the support
+of~$M$, with exact stationary law
+\begin{equation}
+  \label{eq:counterfamily-stationary}
+  \pi(a,b) = \left(\frac{b}{b+1-a},\ \frac{1-a}{2(b+1-a)},\ \frac{1-a}{2(b+1-a)}\right),
+\end{equation}
+directly verified by substitution into $\pi(a,b)\,K(a,b)=\pi(a,b)$. Distinct $(a,b)$
+give distinct stationary laws: for instance $\pi(1/3,1/2)=(3/7,2/7,2/7)$, while $\textup{H2}$'s
+own Parry kernel of~\eqref{eq:P-exact} below is recovered at $(a,b)=(\sqrt2-1,\,2-\sqrt2)$,
+where~\eqref{eq:counterfamily-stationary} evaluates exactly to $(1/2,1/4,1/4)$. Thus
+support, primitivity, and the Pell recurrence alone do not select a unique kernel.
 
 \subsection{Hypothesis \textup{H2}}
 \label{sec:h2-hyp}
@@ -548,10 +575,12 @@ for every admissible shadow $s$.
 
 Theorem~\ref{thm:main} already settles, in general terms, that no $\alpha\ne1$ power
 lift of this $\mu$ is Kolmogorov-consistent. We record, independently, an exact
-computation for $\alpha=1/2$ in $\Qroot$, both as a concrete instance and as a
-cross-check of Theorem~\ref{thm:main} by a different method: sign analysis of an exact
-algebraic identity, rather than the elementary order comparison of
-Lemma~\ref{lem:power-compare}.
+real-algebraic proof for $\alpha=1/2$, both as a concrete instance and as a cross-check
+of Theorem~\ref{thm:main} by a different method: sign analysis of an exact algebraic
+identity, rather than the elementary order comparison of Lemma~\ref{lem:power-compare}.
+The square roots $\sqrt{P_{ij}}$ themselves need not lie in $\Qroot$; what is certified
+exactly in $\Qroot$ is the positivity of every radicand $P_{ij}P_{ik}$ that appears
+below, which is all the proof requires.
 
 \begin{proposition}[Exact square-root failure on the shadow automaton]
   \label{prop:sqrt-fail}
@@ -578,8 +607,9 @@ Lemma~\ref{lem:power-compare}.
 \end{proof}
 
 Proposition~\ref{prop:sqrt-fail} recovers the $\alpha=1/2$ case of
-Theorem~\ref{thm:main} for this specific $P$ by an independent argument, and computes
-it in exact $\Qroot$ arithmetic rather than by the general order comparison.
+Theorem~\ref{thm:main} for this specific $P$ by an independent argument: it gives an
+exact real-algebraic proof, using $\Qroot$ arithmetic to certify the positivity of
+every radicand, rather than the general order comparison.
 
 \section{Endpoint and Shadow Quotients Are Incomparable}
 \label{sec:quotients}
