@@ -63,26 +63,35 @@ $\alpha>0$, that is \emph{Kolmogorov-consistent}: summing the lifted weight of e
 admissible one-step extension of a history recovers the lifted weight of the history
 itself, so that $\{\mu_n^\alpha\}_n$ forms a projective family of measures. The proof is
 an elementary comparison of $x^\alpha$ against $x$ on $[0,1]$, strict at every state with
-at least two admissible successors. Consequently, no nonlinear power lift of a positive
-branching measure --- in particular no square-root (``amplitude'') lift --- defines a
-projective family in the sense of the Kolmogorov extension theorem, and this failure is
-established before any question of phase, complex structure, or the Born rule is posed.
-We instantiate the obstruction on the non-backtracking Heisenberg-word automaton of the
-Cosmochrony trajectory-branching programme~\cite{Beau2026tb}, under an explicitly named,
-non-derived maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2},
-computing the obstruction exactly in $\Qroot$. We further show, with explicit witnesses
-on words of length up to~$4$, that the endpoint quotient and the shadow quotient of this
-automaton are mutually incomparable; verify two exact covariances of the resulting phase
-diagnostic; and report a bounded exact search, on words of length up to~$8$, finding no
-destructive cancellation among histories sharing an endpoint. No result here concerns the
-Born rule, a complex carrier, or a coherent-sum construction; each remains exactly as
-open as it was in the companion note this paper succeeds~\cite{Beau2026steft}.
+at least two admissible successors. Consequently, no unnormalised pointwise power lift of
+a non-degenerate branching measure remains a projective family of measures; in particular
+the square-root modulus does not inherit classical cylinder consistency from the
+underlying measure. This does \emph{not} obstruct the use of such a lift as an amplitude
+modulus unless that modulus is additionally required to obey classical additive
+marginalisation: a row-renormalised (``escort'') power lift restores Kolmogorov
+consistency trivially, at the cost of generally no longer coinciding with the pointwise
+lift once path-dependent normalisation factors accumulate
+(Section~\ref{sec:escort}), a fact already known in the escort-distribution literature of
+nonextensive statistical mechanics~\cite{Abe2000,TsallisPlastinoAlvarezEstrada2009} and
+situated here, not claimed as new in isolation. We instantiate the unnormalised
+obstruction on the non-backtracking Heisenberg-word automaton of the Cosmochrony
+trajectory-branching programme~\cite{Beau2026tb}, under an explicitly named, non-derived
+maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2}, computing it
+exactly in $\Qroot$. Independently of \textup{H2}, we show, with explicit witnesses on
+words of length up to~$4$, that the endpoint quotient and the shadow quotient of this
+automaton are mutually incomparable, and that relabelling $X\leftrightarrow X^{-1}$
+transports the endpoint by an exact group automorphism, forcing every weighted
+uniform-probe phase sum over histories sharing a final $b_n$ to be real. Under
+\textup{H2}, we report a bounded exact search, on words of length up to~$8$, finding no
+destructive cancellation among such histories. No result here concerns the Born rule, a
+complex carrier, or a coherent-sum construction; each remains exactly as open as it was
+in the companion note this paper succeeds~\cite{Beau2026steft}.
 \end{abstract}
 
 \noindent\textbf{Keywords.}
-Kolmogorov consistency; power lift; Markov measure; Parry measure; maximal entropy;
-refinement consistency; Heisenberg group; Weil representation; non-backtracking words;
-amplitude obstruction.
+Kolmogorov consistency; power lift; escort distribution; Markov measure; Parry measure;
+maximal entropy; refinement consistency; Heisenberg group; Weil representation;
+non-backtracking words; cylinder-measure obstruction.
 
 \newpage
 \tableofcontents
@@ -145,14 +154,22 @@ This paper establishes:
   \item a general, self-contained theorem (Theorem~\ref{thm:main}): for any finite
   branching system, the power-lift family $\mu^\alpha$ of its induced valuation is
   Kolmogorov-consistent if and only if $\alpha=1$, at every branching state;
-  \item an exact instantiation of this obstruction, in $\Qroot$, for the
+  \item the situation of this fact relative to the classical escort-distribution/R\'enyi
+  literature~\cite{Abe2000,TsallisPlastinoAlvarezEstrada2009}: a row-renormalised power
+  lift is trivially Kolmogorov-consistent for every $\alpha$, but is generally not the
+  pointwise lift $\mu_n^\alpha$ once path-dependent normalisation is unwound
+  (Section~\ref{sec:escort});
+  \item an exact instantiation of the unnormalised obstruction, in $\Qroot$, for the
   maximal-entropy/Parry law of the Heisenberg $b$-shadow automaton under hypothesis
   \textup{H2} (Section~\ref{sec:h2});
   \item exact witnesses, on words of length up to~$4$, that the endpoint quotient and the
   shadow quotient of the automaton are mutually incomparable (Section~\ref{sec:quotients});
-  \item two exact covariance checks of the uniform-probe phase diagnostic, and a bounded
-  exact search, on words of length up to~$8$, finding no destructive cancellation among
-  co-endpoint histories (Section~\ref{sec:search}).
+  \item an exact group-automorphism transport of the endpoint under $X\leftrightarrow
+  X^{-1}$ relabelling, and its corollary that every weighted uniform-probe phase sum over
+  histories sharing a final $b_n$ is real (Section~\ref{sec:search});
+  \item conjugate covariance of the phase diagnostic, and a bounded exact search, on
+  words of length up to~$8$, finding no destructive cancellation among histories sharing
+  a final $b_n$ (Section~\ref{sec:search}).
 \end{enumerate}
 
 This paper does \emph{not} establish, and does not use as a hypothesis anywhere above:
@@ -163,22 +180,30 @@ This paper does \emph{not} establish, and does not use as a hypothesis anywhere 
   \item a coherent-sum construction, canonical or otherwise, on any quotient of the
   automaton;
   \item the physical status of hypothesis~\textup{H2} itself, which is stated and used
-  exactly as what it is: a named, non-derived postulate (Hypothesis~\ref{hyp:h2});
+  exactly as what it is: a named, non-derived postulate (Hypothesis~\ref{hyp:h2}), and
+  whose dependency is narrower than "all of Sections~\ref{sec:h2}--\ref{sec:search}" ---
+  see the precise breakdown in Section~\ref{sec:outlook};
   \item a re-derivation of the $D4$ projective-distinguishability channel
   of~\cite{Beau2026tb}, whose already-proved equivalence to the shadow quotient
-  (for a generic probe, pre-saturation) is cited, not repeated.
+  (for a generic probe, pre-saturation) is cited, not repeated;
+  \item any claim that an amplitude modulus is obstructed by Theorem~\ref{thm:main}:
+  the theorem concerns classical cylinder-measure consistency, which an amplitude is not
+  in general required to satisfy (Remark~\ref{rem:scope}, Section~\ref{sec:escort}).
 \end{enumerate}
 
 \subsection{Organization}
 
 Section~\ref{sec:branching} gives self-contained definitions of finite branching
 systems, induced valuations, Kolmogorov consistency, and power lifts. Section
-\ref{sec:main} states and proves the main theorem. Section~\ref{sec:h2} specialises to
-the Heisenberg shadow automaton and hypothesis~\textup{H2}, with an independent exact
-verification in $\Qroot$. Section~\ref{sec:quotients} establishes the endpoint/shadow
-incomparability. Section~\ref{sec:search} states the covariance and cancellation
-results. Section~\ref{sec:certification} describes the archived reproduction script.
-Section~\ref{sec:outlook} states the paper's limits precisely.
+\ref{sec:main} states and proves the main theorem and, in
+Section~\ref{sec:escort}, situates it relative to escort-renormalised power lifts and
+the escort-distribution literature. Section~\ref{sec:h2} specialises to the Heisenberg
+shadow automaton and hypothesis~\textup{H2}, with an independent exact verification in
+$\Qroot$. Section~\ref{sec:quotients} establishes the endpoint/shadow incomparability.
+Section~\ref{sec:search} states the covariance, reality, and cancellation results.
+Section~\ref{sec:certification} describes the archived reproduction script.
+Section~\ref{sec:outlook} states the paper's limits precisely, including an exact
+breakdown of which results do and do not depend on \textup{H2}.
 
 \section{Finite Branching Systems and Power Lifts}
 \label{sec:branching}
@@ -332,8 +357,112 @@ canonical candidate for reading $\mu$ as an amplitude modulus, since $\vert \mu^
   quantity must therefore either abandon Kolmogorov consistency as a requirement on
   that quantity --- and justify doing so independently --- or supply a genuinely
   different construction, not of the pointwise power-lift form of
-  Definition~\ref{def:lift}, that restores it. Neither option is exercised in this
-  paper; see Section~\ref{sec:outlook}.
+  Definition~\ref{def:lift}, that restores it. The second option is not vacuous: the
+  row-renormalised construction of Section~\ref{sec:escort} restores Kolmogorov
+  consistency exactly, at a cost made precise there. In particular, Theorem
+  \ref{thm:main} is a statement about \emph{classical cylinder-measure consistency}; an
+  amplitude modulus is not, in general, required to satisfy it, so the theorem should
+  not be read as an obstruction to amplitudes as such. Neither option is exercised as a
+  physical proposal in this paper; see Section~\ref{sec:outlook}.
+\end{remark}
+
+\subsection{Escort (row-renormalised) power lifts and related work}
+\label{sec:escort}
+
+The elementary inequality underlying Lemma~\ref{lem:power-compare} and
+Theorem~\ref{thm:main} is not new in isolation: it is the same order relation that
+underlies the classical \emph{escort distributions} of R\'enyi-entropy and
+nonextensive-statistical-mechanics theory~\cite{Abe2000,
+TsallisPlastinoAlvarezEstrada2009}, where a probability vector $p$ is renormalised,
+coordinate-wise power by coordinate-wise power, into
+$q_j = p_j^\alpha / \sum_k p_k^\alpha$. Situating Theorem~\ref{thm:main} correctly
+relative to that literature requires distinguishing it from the renormalised
+construction, which does not fall under its scope.
+
+\begin{definition}[Escort kernel and escort valuation]
+  \label{def:escort}
+  For $\alpha>0$, the \emph{escort kernel} of a finite branching system $(\Sh,M,P)$
+  (Definition~\ref{def:system}) is
+  \begin{equation}
+    \label{eq:escort-kernel}
+    Q^{(\alpha)}_{ij} := \frac{P_{ij}^\alpha}{\sum_{k} P_{ik}^\alpha}
+    \qquad \text{whenever } \textstyle\sum_k P_{ik}^\alpha > 0,
+  \end{equation}
+  and the \emph{escort initial law} of $\nu$ is
+  $\nu^{(\alpha)}(i) := \nu(i)^\alpha / \sum_j \nu(j)^\alpha$. The \emph{escort
+  valuation} $\mu_n^{\mathrm{esc},\alpha}$ is the induced valuation
+  (Definition~\ref{def:history}) of the finite branching system $(\Sh,M,Q^{(\alpha)})$
+  under initial law $\nu^{(\alpha)}$.
+\end{definition}
+
+\begin{proposition}[Escort lifts are trivially Kolmogorov-consistent]
+  \label{prop:escort-consistent}
+  For every $\alpha>0$, $\{\mu_n^{\mathrm{esc},\alpha}\}_n$ is Kolmogorov-consistent.
+\end{proposition}
+
+\begin{proof}
+  $Q^{(\alpha)}$ is row-stochastic by construction~\eqref{eq:escort-kernel}, so
+  $(\Sh,M,Q^{(\alpha)})$ is a finite branching system in the sense of
+  Definition~\ref{def:system}, and Proposition~\ref{prop:mu-consistent} applies to it
+  directly.
+\end{proof}
+
+Proposition~\ref{prop:escort-consistent} does not contradict Theorem~\ref{thm:main}: it
+is a different object.
+
+\begin{proposition}[Escort valuations generally differ from the pointwise lift by a
+  path-dependent factor]
+  \label{prop:escort-differs}
+  Write $Z_i := \sum_k P_{ik}^\alpha$. For an admissible history $s=(s_1,\dots,s_n)$
+  with $\mu_n(s)>0$,
+  \begin{equation}
+    \label{eq:escort-vs-lift}
+    \mu_n^{\mathrm{esc},\alpha}(s) \;=\; \frac{\mu_n(s)^\alpha}{Z_{s_1}^{\ast}\,
+    Z_{s_1} Z_{s_2} \cdots Z_{s_{n-1}}}, \qquad Z_{s_1}^{\ast} := \sum_j \nu(j)^\alpha,
+  \end{equation}
+  so $\mu_n^{\mathrm{esc},\alpha}(s)$ equals $\mu_n(s)^\alpha$ up to an overall constant
+  for every admissible $s$ of length $n$ if and only if $Z_{s_1}\cdots Z_{s_{n-1}}$ takes
+  the same value on every history of length $n$ reachable with positive $\mu_n$-weight
+  --- in particular if $Z_i$ is constant across all reachable states $i$, but not in
+  general.
+\end{proposition}
+
+\begin{proof}
+  Unwinding Definition~\ref{def:escort}: $\nu^{(\alpha)}(s_1) = \nu(s_1)^\alpha /
+  Z_{s_1}^\ast$, and for $k=2,\dots,n$, $Q^{(\alpha)}_{s_{k-1}s_k} =
+  P_{s_{k-1}s_k}^\alpha / Z_{s_{k-1}}$. Multiplying these $n$ factors gives numerator
+  $\nu(s_1)^\alpha \prod_{k=2}^n P_{s_{k-1}s_k}^\alpha = \mu_n(s)^\alpha$ and
+  denominator $Z_{s_1}^\ast \prod_{k=2}^{n} Z_{s_{k-1}} = Z_{s_1}^\ast\, Z_{s_1} Z_{s_2}
+  \cdots Z_{s_{n-1}}$, proving~\eqref{eq:escort-vs-lift}. The denominator is a function
+  of the specific sequence of states $s_1,\dots,s_{n-1}$ visited by $s$, not merely of
+  $n$ or of $\mu_n(s)$; two histories of length $n$ visiting different state sequences
+  before $s_n$ therefore divide $\mu_n(s)^\alpha$ by different constants unless every
+  $Z_i$, $i\in\Sh$, coincides.
+\end{proof}
+
+\begin{remark}[What this section adds and what it does not claim]
+  \label{rem:escort-novelty}
+  Proposition~\ref{prop:escort-differs} confirms, for the pointwise-lift family of
+  Definition~\ref{def:lift}, exactly the informal expectation of the escort-distribution
+  literature: renormalising a power-transformed kernel restores a bona fide stochastic
+  process, but at the cost of the renormalisation constants accumulating along the
+  history rather than factoring through a single global constant, so
+  $\mu_n^{\mathrm{esc},\alpha}$ is not simply a rescaled $\mu_n^\alpha$ except in the
+  degenerate case that $Z_i$ does not depend on $i$. For the automaton of
+  Section~\ref{sec:automaton} under \textup{H2} (Section~\ref{sec:h2}), state $0$ has
+  three admissible successors while $\pm$ each have two, so equality of $Z_0$ and
+  $Z_{\pm}$ across every row of~\eqref{eq:P-exact} would be a coincidence of that
+  specific kernel, not something forced by the construction; this paper does not compute
+  the $Z_i$ exactly and does not need to, since Proposition~\ref{prop:escort-differs}'s
+  qualitative conclusion already suffices. This paper's contribution is accordingly not
+  the elementary inequality of Lemma~\ref{lem:power-compare} taken in isolation, but:
+  its use as a compatibility test between a fixed cylinder measure and a candidate
+  modulus, rather than as an isolated property of probability vectors; its insertion
+  into the concrete \textup{H2}/Parry/Pell chain of Section~\ref{sec:h2}; the precise
+  identification, in Proposition~\ref{prop:escort-differs}, of exactly what a
+  renormalised lift preserves and what it loses relative to the pointwise lift; and the
+  exact quotient-incomparability and phase results of
+  Sections~\ref{sec:quotients}--\ref{sec:search}.
 \end{remark}
 
 \section{Specialisation: the Heisenberg Shadow Automaton and \textup{H2}}
@@ -536,15 +665,77 @@ unity.
 
 \begin{proposition}[Generator-relabelling covariance]
   \label{prop:relabel}
-  Relabelling $X\leftrightarrow X^{-1}$ throughout an admissible word leaves its
-  $b$-shadow, and hence its induced valuation $\mu_n$, exactly unchanged.
+  Let $\phi(a,b,\gamma) := (-a,\,b,\,-\gamma)$. Then:
+  \begin{enumerate}[label=(\roman*)]
+    \item $\phi$ is a group automorphism of $\Heis$;
+    \item relabelling $X\leftrightarrow X^{-1}$ throughout an admissible word transports
+    its endpoint by $\phi$: a word with endpoint $u_n=(a_n,b_n,\gamma_n)$ has relabelled
+    endpoint $\phi(u_n) = (-a_n,\,b_n,\,-\gamma_n)$;
+    \item consequently the relabelling leaves the $b$-shadow, and hence the induced
+    valuation $\mu_n$, exactly unchanged, and is an involutive bijection of the set of
+    admissible words of each length $n$ onto itself, preserving $b_n$.
+  \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-  Both $X$ and $X^{-1}$ emit the same shadow symbol $0$, and the relabelling is a
-  bijection of the non-backtracking word language~\cite{Beau2026tb}: it maps admissible
-  words to admissible words letter by letter, without altering any emission.
+  (i) For $(a,b,\gamma),(a',b',\gamma')\in\Heis$, using~\eqref{eq:heis-law},
+  \begin{align*}
+    \phi\bigl((a,b,\gamma)(a',b',\gamma')\bigr)
+    &= \phi(a+a',\,b+b',\,\gamma+\gamma'+ab')
+    = (-a-a',\,b+b',\,-\gamma-\gamma'-ab'), \\
+    \phi(a,b,\gamma)\,\phi(a',b',\gamma')
+    &= (-a,b,-\gamma)(-a',b',-\gamma')
+    = (-a-a',\,b+b',\,-\gamma-\gamma'+(-a)b'),
+  \end{align*}
+  and the two right-hand sides agree, so $\phi$ is a homomorphism; it is its own
+  inverse ($\phi\circ\phi=\mathrm{id}$), hence an automorphism.
+
+  (ii) The relabelling sends each generator to its own image under $\phi$:
+  $\phi(X)=\phi(1,0,0)=(-1,0,0)=X^{-1}$, $\phi(X^{-1})=X$, and $\phi(Y)=\phi(0,1,0)
+  =(0,1,0)=Y$, $\phi(Y^{-1})=Y^{-1}$ (both fixed, since $a=0$ for these generators).
+  Since $\phi$ is a homomorphism, the endpoint of the relabelled word is
+  $\phi(g_1)\phi(g_2)\cdots\phi(g_n) = \phi(g_1g_2\cdots g_n) = \phi(u_n)$.
+
+  (iii) $\phi$ fixes $b$ by construction, and both $X,X^{-1}$ emit the shadow symbol
+  $0$ while $Y,Y^{-1}$ are individually fixed by the relabelling, so the shadow
+  sequence is unchanged letter by letter, and with it $\mu_n$
+  (Definition~\ref{def:history}, depending only on the shadow). The relabelling is a
+  bijection of the non-backtracking word language onto itself, since it commutes with
+  taking letter inverses ($\mathrm{INV}\circ\mathrm{relabel} = \mathrm{relabel}\circ
+  \mathrm{INV}$ on $\{X,X^{-1},Y,Y^{-1}\}$, checked on each generator), hence preserves
+  the non-backtracking condition; it is involutive since $\phi$ is.
 \end{proof}
+
+\begin{corollary}[Reality of co-$b_n$ class sums]
+  \label{cor:real}
+  For every character $c$ and every class of admissible histories of a fixed length
+  $n$ sharing a final $b_n$, the weighted uniform-probe sum
+  $S := \sum_h \mu_n(h)\,\psi_c(\gamma_n(h))$ is exactly real.
+\end{corollary}
+
+\begin{proof}
+  By Proposition~\ref{prop:relabel}, relabelling is an involutive bijection of the
+  class onto itself (it preserves $n$ and $b_n$), under which $\mu_n$ is unchanged and
+  $\gamma_n \mapsto -\gamma_n$. Reindexing the finite sum $S$ by this bijection,
+  \begin{equation*}
+    S = \sum_h \mu_n(h)\,\psi_c(\gamma_n(h))
+    = \sum_h \mu_n(h)\,\psi_c(-\gamma_n(h))
+    = \sum_h \mu_n(h)\,\overline{\psi_c(\gamma_n(h))}
+    = \overline{S},
+  \end{equation*}
+  using $\psi_c(-\gamma)=\overline{\psi_c(\gamma)}$ (as in the proof of
+  Proposition~\ref{prop:conjugate}) and $\mu_n(h)\in\Qroot\subset\R$. Hence $S=\overline
+  S$, so $S\in\R$.
+\end{proof}
+
+\begin{remark}[Scope of Proposition~\ref{prop:relabel} and Corollary~\ref{cor:real}]
+  \label{rem:relabel-scope}
+  Neither result uses \textup{H2}'s specific numeric values: part~(iii) and
+  Corollary~\ref{cor:real} hold for the induced valuation of \emph{any} shadow-only
+  transition law on the automaton of Section~\ref{sec:automaton}, since their proofs use
+  only that $\mu_n$ is a function of the shadow. \textup{H2} supplies this paper's
+  concrete instance; see the dependency breakdown in Section~\ref{sec:outlook}.
+\end{remark}
 
 \subsection{An exact cancellation criterion}
 
@@ -600,10 +791,13 @@ absent residues with $0$) are all equal.
 \begin{remark}[Reading Proposition~\ref{prop:search}]
   \label{rem:search-reading}
   This is a calibrated negative result on a bounded range, not a claim of non-existence
-  at every $n$: it states that exact destructive cancellation among co-endpoint
-  admissible histories, weighted by the~\textup{H2} valuation, does not occur for
-  $n\le8$ at $q=17$, despite genuine relative phase being present in $62$ of the $64$
-  qualifying classes.
+  at every $n$: it states that exact destructive cancellation among admissible
+  histories sharing a final $b_n$, weighted by the~\textup{H2} valuation, does not occur
+  for $n\le8$ at $q=17$, despite genuine relative phase being present in $62$ of the
+  $64$ qualifying classes. This is a statement about the $\pi_{\mathrm{shadow}}$-derived
+  $b_n$-quotient, not the endpoint quotient $\pi_{D1}$: by
+  Proposition~\ref{prop:incomparable}, the two are mutually incomparable, so conflating
+  ``sharing a final $b_n$'' with ``sharing an endpoint'' would silently undo that result.
 \end{remark}
 
 \section{Computational Certification}
@@ -620,12 +814,17 @@ Proposition~\ref{prop:sqrt-fail} for all three rows of $P$; enumeration of all $
 non-backtracking words of length $n \le 8$ over $\Heis(\Z/17\Z)$, their exact endpoints
 and shadows; both witnesses of Proposition~\ref{prop:incomparable} (found by exhaustive
 search over the enumerated set, then re-verified by hand against~\eqref{eq:heis-law}
-step by step); the exact cyclotomic-vanishing search of
-Proposition~\ref{prop:search} for $c=1$ and, independently, for the conjugate
-$c=16=q-c$, confirming Proposition~\ref{prop:conjugate}'s predicted covariance of the
-vanishing pattern; and the shadow-invariance of Proposition~\ref{prop:relabel} for all
-$13120$ enumerated words. All assertions pass; no numerical claim in this paper exceeds
-what the script checks.
+step by step); the exact cyclotomic-vanishing search of Proposition~\ref{prop:search}
+for $c=1$ and, independently, for the conjugate $c=16=q-c$, confirming
+Proposition~\ref{prop:conjugate}'s predicted covariance of the vanishing pattern; the
+shadow-invariance of Proposition~\ref{prop:relabel}(iii) for all $13120$ enumerated
+words; the exact endpoint transformation $\phi(a_n,b_n,\gamma_n)=(-a_n,b_n,-\gamma_n)$
+of Proposition~\ref{prop:relabel}(ii), checked against every enumerated word's
+relabelled endpoint; and, for every co-$b_n$ class used in
+Proposition~\ref{prop:search}, the exact coefficient symmetry
+$\mathrm{coeffs}[k]=\mathrm{coeffs}[(q{-}k)\bmod q]$ that certifies
+Corollary~\ref{cor:real}'s reality claim without evaluating any complex number. All
+assertions pass; no numerical claim in this paper exceeds what the script checks.
 
 \section{Limits, Non-Claims, and Outlook}
 \label{sec:outlook}
@@ -643,10 +842,29 @@ clarity alongside Section~\ref{sec:claims}:
   \item \textbf{No coherent-sum construction.} Proposition~\ref{prop:search} is a
   negative existence search on a bounded range, not the construction or endorsement of
   any canonical coherent sum on any quotient of Section~\ref{sec:quotients}.
-  \item \textbf{\textup{H2} is a postulate, not a theorem.} Every result of
-  Sections~\ref{sec:h2}--\ref{sec:search} is conditional on Hypothesis~\ref{hyp:h2} and
-  must be read with that conditionality attached; Section~\ref{sec:main}'s Theorem
-  \ref{thm:main} alone is unconditional, general, and independent of \textup{H2}.
+  \item \textbf{No obstruction to amplitudes as such.} Theorem~\ref{thm:main} concerns
+  classical cylinder-measure (Kolmogorov) consistency of an \emph{unnormalised}
+  pointwise power lift; it says nothing against a renormalised escort-type lift
+  (Section~\ref{sec:escort}), nor does it impose classical additive marginalisation as a
+  requirement on an amplitude, which need not satisfy it. The word ``obstruction'' in
+  this paper's title refers to cylinder-measure consistency, not to amplitudes.
+  \item \textbf{\textup{H2}'s dependency, precisely.} \textup{H2} (Hypothesis
+  \ref{hyp:h2}) is a postulate, not a theorem, and its dependency is narrower than a
+  blanket claim over Sections~\ref{sec:h2}--\ref{sec:search} would suggest. Genuinely
+  dependent on \textup{H2}'s specific numeric content: the Parry kernel and stationary
+  law~\eqref{eq:parry-kernel}--\eqref{eq:P-exact} and the valuation $\mu_n$ built from
+  them (Section~\ref{sec:h2}); Proposition~\ref{prop:sqrt-fail}'s exact instantiation;
+  and the specific counts of Proposition~\ref{prop:search} ($64$ classes, $62$ with
+  nontrivial phase, $0$ exact cancellations), since it weights histories by $\mu_n$.
+  Requiring no more than \emph{some} shadow-only transition law on the automaton of
+  Section~\ref{sec:automaton} --- \textup{H2} supplies this paper's instance, but is not
+  otherwise used: Proposition~\ref{prop:incomparable}'s quotient incomparability
+  (Section~\ref{sec:quotients}), which uses only the group structure;
+  Proposition~\ref{prop:conjugate}'s character identity; and
+  Proposition~\ref{prop:relabel} and Corollary~\ref{cor:real}
+  (Remark~\ref{rem:relabel-scope}). Theorem~\ref{thm:main}, Corollary~\ref{cor:unique},
+  and Section~\ref{sec:escort} (Section~\ref{sec:main}) are unconditional, general, and
+  independent of \textup{H2} and of this automaton entirely.
   \item \textbf{No re-derivation of $D4$.} The equivalence, for a generic probe on the
   pre-saturation window, of the shadow quotient and the canonical projective
   distinguishability channel of~\cite{Beau2026tb} is cited from that paper's own
@@ -654,14 +872,18 @@ clarity alongside Section~\ref{sec:claims}:
 \end{itemize}
 
 Theorem~\ref{thm:main} and Corollary~\ref{cor:unique} constrain, rather than foreclose,
-any future construction of an amplitude modulus for a finite branching system. By
-Remark~\ref{rem:scope}, such a construction must either be something other than a
-pointwise power lift of the branching valuation, or must explicitly abandon Kolmogorov
-consistency as a requirement and justify that choice on independent grounds; a
-construction that silently assumes both the branching valuation \emph{and} its
-Kolmogorov consistency \emph{and} a nonlinear lift of it is assuming something that
+any future construction that would use an unnormalised pointwise power lift of a
+finite branching measure as a classically consistent cylinder measure. By
+Remark~\ref{rem:scope} and Section~\ref{sec:escort}, such a construction must either be
+something other than a pointwise power lift of the branching valuation (for instance an
+escort-renormalised one, at the cost made precise in
+Proposition~\ref{prop:escort-differs}), or must explicitly abandon Kolmogorov
+consistency as a requirement and justify that choice on independent grounds --- as an
+amplitude modulus may legitimately do, since it is not a classical cylinder measure. A
+construction that silently assumes both the unnormalised branching valuation \emph{and}
+its Kolmogorov consistency \emph{and} a nonlinear lift of it is assuming something that
 Theorem~\ref{thm:main} shows cannot hold together. This is the precise sense in which
-the present obstruction is a necessary condition on, not a substitute for, any future
+the present result is a necessary condition on, not a substitute for, any future
 resolution of the amplitude-modulus question this paper's motivating context leaves
 open~\cite{Beau2026steft}.
 

@@ -16,8 +16,11 @@ Certifies:
   - the exact cyclotomic-vanishing cancellation search (Section 6.3), for c=1 and for the
     conjugate c=16=q-c, confirming the predicted conjugate-covariance of the vanishing
     pattern (Proposition "Conjugate covariance");
-  - the shadow-invariance of X<->X^{-1} relabelling (Proposition "Generator-relabelling
-    covariance"), over all enumerated words.
+  - the shadow invariance AND the exact endpoint transformation
+    phi(a,b,gamma)=(-a,b,-gamma) of X<->X^{-1} relabelling (Proposition
+    "Generator-relabelling covariance", parts ii-iii), over all enumerated words;
+  - the exact coefficient symmetry coeffs[k]==coeffs[(Q-k)%Q] that certifies Corollary
+    "Reality of co-b_n class sums" without evaluating any complex number.
 
 Explicitly out of scope (unchanged from the paper): the D4/generic-probe residual-norm
 channel of the trajectory-branching note is not recomputed; its cited equivalence to the
@@ -295,16 +298,19 @@ def phase_cancellation_report(records, c):
         distinct_gammas = len(set(g for g, _ in items))
         vanishes = cyclotomic_vanishes(coeffs) if distinct_gammas > 1 else False
         nontrivial_all_equal_nonzero = vanishes and coeffs[0] != ZERO2
+        symmetric = all(coeffs[k] == coeffs[(Q - k) % Q] for k in range(Q))
         findings.append({
             "n": n, "b_n": b, "count": len(items),
             "distinct_gamma_labels": distinct_gammas,
             "exact_cancellation": nontrivial_all_equal_nonzero,
+            "coeffs_symmetric": symmetric,
         })
     return findings
 
 
 # ---------------------------------------------------------------------------
-# Section H: Proposition "Generator-relabelling covariance"
+# Section H: Proposition "Generator-relabelling covariance" and Corollary
+# "Reality of co-b_n class sums"
 # ---------------------------------------------------------------------------
 
 RELABEL = {"X": "x", "x": "X", "Y": "Y", "y": "y"}
@@ -315,15 +321,24 @@ def relabel_word(word):
 
 
 def relabelling_covariance_report(records):
-    mismatches = 0
+    """Certifies Proposition 'Generator-relabelling covariance', parts (ii)-(iii):
+    shadow invariance AND the exact endpoint transformation
+    phi(a,b,gamma) = (-a, b, -gamma)."""
+    shadow_mismatches = 0
+    endpoint_mismatches = 0
     checked = 0
     for r in records:
         w2 = relabel_word(r["word"])
         sh2 = shadow_of(w2)
+        ep2 = endpoint_of(w2)
+        a, b, g = r["endpoint"]
+        predicted = ((-a) % Q, b % Q, (-g) % Q)
         checked += 1
         if sh2 != r["shadow"]:
-            mismatches += 1
-    return checked, mismatches
+            shadow_mismatches += 1
+        if ep2 != predicted:
+            endpoint_mismatches += 1
+    return checked, shadow_mismatches, endpoint_mismatches
 
 
 # ---------------------------------------------------------------------------
@@ -364,6 +379,10 @@ def main():
     print(f"  classes with >1 distinct gamma-phase label: {len(multi_phase)}")
     print(f"  classes with EXACT cyclotomic cancellation: {len(any_cancel)}")
 
+    print("\n[Cor. 'Reality of co-b_n class sums'] coeffs[k] == coeffs[(Q-k)%Q] for every class:")
+    asymmetric = [f for f in findings if not f["coeffs_symmetric"]]
+    print(f"  classes checked: {len(findings)}, asymmetric (S not real): {len(asymmetric)} (expect 0).")
+
     print("\n[Prop. 'Conjugate covariance'] c=1 vs c=q-c={}:".format(C0_CONJ))
     findings_conj = phase_cancellation_report(records, C0_CONJ)
     same_len = len(findings) == len(findings_conj)
@@ -371,9 +390,10 @@ def main():
                            [f["exact_cancellation"] for f in findings_conj]
     print(f"  class count matches: {same_len}; cancellation pattern matches: {same_cancel_pattern}")
 
-    print("\n[Prop. 'Generator-relabelling covariance'] X<->X^{-1} shadow invariance:")
-    checked, mism = relabelling_covariance_report(records)
-    print(f"  {checked} words checked, {mism} shadow mismatches (expected 0).")
+    print("\n[Prop. 'Generator-relabelling covariance'] X<->X^{-1} shadow and endpoint transform:")
+    checked, sh_mism, ep_mism = relabelling_covariance_report(records)
+    print(f"  {checked} words checked, {sh_mism} shadow mismatches, "
+          f"{ep_mism} endpoint-transform mismatches (both expected 0).")
 
     print("\n" + "=" * 78)
     print("End of run. No Born rule used. No publication step taken.")
