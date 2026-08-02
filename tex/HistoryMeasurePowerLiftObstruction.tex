@@ -1,0 +1,677 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{doi}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\geometry{margin=2.5cm}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Refinement Consistency Obstructs Nonlinear Power Lifts of Finite History Measures},
+  pdfauthor={Jerome Beau}
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{hypothesis}[theorem]{Hypothesis}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Qroot}{\Q(\sqrt{2})}
+\newcommand{\Heis}{\mathrm{Heis}_3(\Z/q\Z)}
+\newcommand{\Sh}{\Sigma}
+\newcommand{\hist}{\mathrm{Hist}}
+
+\title{\textbf{Refinement Consistency Obstructs Nonlinear}\\
+\textbf{Power Lifts of Finite History Measures}}
+
+\author{J\'er\^ome Beau\\[0.3em]
+\small Independent Researcher\\
+\small \texttt{jerome.beau@cosmochrony.org}}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A finite branching system is a finite set of local states equipped with an admissibility
+relation and a row-stochastic transition kernel. From an initial law, such a system
+induces a canonical positive valuation on admissible histories. We prove that this
+valuation is the unique member of its own power-lift family, $\mu^\alpha$ for
+$\alpha>0$, that is \emph{Kolmogorov-consistent}: summing the lifted weight of every
+admissible one-step extension of a history recovers the lifted weight of the history
+itself, so that $\{\mu_n^\alpha\}_n$ forms a projective family of measures. The proof is
+an elementary comparison of $x^\alpha$ against $x$ on $[0,1]$, strict at every state with
+at least two admissible successors. Consequently, no nonlinear power lift of a positive
+branching measure --- in particular no square-root (``amplitude'') lift --- defines a
+projective family in the sense of the Kolmogorov extension theorem, and this failure is
+established before any question of phase, complex structure, or the Born rule is posed.
+We instantiate the obstruction on the non-backtracking Heisenberg-word automaton of the
+Cosmochrony trajectory-branching programme~\cite{Beau2026tb}, under an explicitly named,
+non-derived maximal-entropy/Parry postulate~\cite{Parry1964} we call \textup{H2},
+computing the obstruction exactly in $\Qroot$. We further show, with explicit witnesses
+on words of length up to~$4$, that the endpoint quotient and the shadow quotient of this
+automaton are mutually incomparable; verify two exact covariances of the resulting phase
+diagnostic; and report a bounded exact search, on words of length up to~$8$, finding no
+destructive cancellation among histories sharing an endpoint. No result here concerns the
+Born rule, a complex carrier, or a coherent-sum construction; each remains exactly as
+open as it was in the companion note this paper succeeds~\cite{Beau2026steft}.
+\end{abstract}
+
+\noindent\textbf{Keywords.}
+Kolmogorov consistency; power lift; Markov measure; Parry measure; maximal entropy;
+refinement consistency; Heisenberg group; Weil representation; non-backtracking words;
+amplitude obstruction.
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introduction}
+\label{sec:introduction}
+
+\subsection{Motivation}
+\label{sec:motivation}
+
+A recurring move, whenever a finite process produces positive weights on branching
+histories, is to read those weights as an ``amplitude'' by taking some power of them ---
+canonically a square root, so that squaring later recovers a probability. This move is
+rarely audited for its own sake: it is usually adopted because it is the operation a
+target theory (quantum mechanics, most often) is expected to need, not because the
+branching structure itself selects it.
+
+This note isolates exactly when such a power lift is compatible with the branching
+structure that produced the weights in the first place, independently of what the lift
+is eventually used for. The compatibility condition we use is elementary and
+theory-neutral: the lifted weight of a history should be recoverable by summing the
+lifted weights of its one-step admissible extensions, exactly as an ordinary
+probability measure on a growing history space must satisfy the marginal consistency
+required by the Kolmogorov extension theorem~\cite{Billingsley1995}. We call this
+property \emph{Kolmogorov consistency} for a family of history weights (Definition
+\ref{def:consistency}).
+
+The main result (Theorem~\ref{thm:main}) is that Kolmogorov consistency holds for the
+power-lift family $\mu^\alpha$ of a finite branching measure $\mu$ if and only if
+$\alpha=1$, at every state of the system with at least two admissible successors. In
+particular the square-root lift, $\alpha=1/2$, fails this consistency whenever the
+system branches at all. The obstruction is elementary, general, and has nothing to do
+with phase, complex numbers, or the Born rule: it is a fact about positive numbers and
+sums.
+
+The motivating context is the Cosmochrony research programme's search for a bridge
+between spectral admissibility and quantum amplitude structure. The companion note
+\emph{Finite Support and Preparation Criteria for Independent Effective Subsystems}
+and its states-and-effects successor~\cite{Beau2026esub,Beau2026steft} close a finite,
+classical, simplicial layer of that programme and explicitly leave open ``the natural
+next step'': what could constrain an amplitude modulus without conflating exclusion,
+mixture, and coherent cancellation. The trajectory-branching
+note~\cite{Beau2026tb} supplies a concrete finite branching system --- a non-backtracking
+automaton on Heisenberg-group words --- together with a Pell-recurrence history count,
+but selects no probability law on that automaton. Under the explicitly named
+maximal-entropy/Parry postulate~\textup{H2}, which does select such a law, this note
+determines exactly which power lifts of it remain consistent as history weights, and the
+answer is: only the trivial one. Sections~\ref{sec:branching}--\ref{sec:main} state and
+prove this in general, self-contained terms; Sections~\ref{sec:h2}--\ref{sec:search}
+instantiate it exactly on the Heisenberg automaton and report the accompanying exact
+quotient and cancellation analysis; Section~\ref{sec:outlook} states precisely what is
+and is not established.
+
+\subsection{Contributions and non-claims}
+\label{sec:claims}
+
+This paper establishes:
+\begin{enumerate}[label=(\roman*)]
+  \item a general, self-contained theorem (Theorem~\ref{thm:main}): for any finite
+  branching system, the power-lift family $\mu^\alpha$ of its induced valuation is
+  Kolmogorov-consistent if and only if $\alpha=1$, at every branching state;
+  \item an exact instantiation of this obstruction, in $\Qroot$, for the
+  maximal-entropy/Parry law of the Heisenberg $b$-shadow automaton under hypothesis
+  \textup{H2} (Section~\ref{sec:h2});
+  \item exact witnesses, on words of length up to~$4$, that the endpoint quotient and the
+  shadow quotient of the automaton are mutually incomparable (Section~\ref{sec:quotients});
+  \item two exact covariance checks of the uniform-probe phase diagnostic, and a bounded
+  exact search, on words of length up to~$8$, finding no destructive cancellation among
+  co-endpoint histories (Section~\ref{sec:search}).
+\end{enumerate}
+
+This paper does \emph{not} establish, and does not use as a hypothesis anywhere above:
+\begin{enumerate}[label=(\roman*)]
+  \item the Born rule, or any rule mapping an amplitude to an observable probability;
+  \item a complex Hilbert-space carrier, or any claim about which scalar field is
+  physically selected;
+  \item a coherent-sum construction, canonical or otherwise, on any quotient of the
+  automaton;
+  \item the physical status of hypothesis~\textup{H2} itself, which is stated and used
+  exactly as what it is: a named, non-derived postulate (Hypothesis~\ref{hyp:h2});
+  \item a re-derivation of the $D4$ projective-distinguishability channel
+  of~\cite{Beau2026tb}, whose already-proved equivalence to the shadow quotient
+  (for a generic probe, pre-saturation) is cited, not repeated.
+\end{enumerate}
+
+\subsection{Organization}
+
+Section~\ref{sec:branching} gives self-contained definitions of finite branching
+systems, induced valuations, Kolmogorov consistency, and power lifts. Section
+\ref{sec:main} states and proves the main theorem. Section~\ref{sec:h2} specialises to
+the Heisenberg shadow automaton and hypothesis~\textup{H2}, with an independent exact
+verification in $\Qroot$. Section~\ref{sec:quotients} establishes the endpoint/shadow
+incomparability. Section~\ref{sec:search} states the covariance and cancellation
+results. Section~\ref{sec:certification} describes the archived reproduction script.
+Section~\ref{sec:outlook} states the paper's limits precisely.
+
+\section{Finite Branching Systems and Power Lifts}
+\label{sec:branching}
+
+\begin{definition}[Finite branching system]
+  \label{def:system}
+  A \emph{finite branching system} is a triple $(\Sh, M, P)$ where $\Sh$ is a finite set
+  of local states, $M \in \{0,1\}^{\Sh \times \Sh}$ is an admissibility matrix, and $P$
+  is a row-stochastic matrix on $\Sh$ compatible with $M$: $P_{ij} \ge 0$ for all
+  $i,j$, $P_{ij}=0$ whenever $M_{ij}=0$, and $\sum_{j \in \Sh} P_{ij} = 1$ for every
+  $i \in \Sh$. State $i$ is a \emph{branching state} if it has at least two states $j$
+  with $M_{ij}=1$ and $P_{ij}>0$.
+\end{definition}
+
+\begin{definition}[Admissible histories and induced valuation]
+  \label{def:history}
+  An \emph{admissible history} of length $n \ge 1$ is a word
+  $s=(s_1,\dots,s_n) \in \Sh^n$ with $M_{s_{k-1}s_k}=1$ for $k=2,\dots,n$. Given an
+  initial law $\nu$ on $\Sh$, the \emph{induced valuation} of $s$ is
+  \begin{equation}
+    \label{eq:mu}
+    \mu_n(s) \;=\; \nu(s_1) \prod_{k=2}^{n} P_{s_{k-1} s_k}.
+  \end{equation}
+  For an admissible history $s$ of length $n$ and a state $j$ with $M_{s_n j}=1$, write
+  $s \cdot j$ for the length-$(n+1)$ extension of $s$ by $j$.
+\end{definition}
+
+\begin{definition}[Kolmogorov consistency]
+  \label{def:consistency}
+  A family $\{w_n\}_{n \ge 1}$ of nonnegative functions on admissible histories, one for
+  each length, is \emph{Kolmogorov-consistent} if for every admissible history $s$ of
+  length $n$,
+  \begin{equation}
+    \label{eq:consistency}
+    \sum_{j:\, M_{s_n j}=1} w_{n+1}(s \cdot j) \;=\; w_n(s).
+  \end{equation}
+\end{definition}
+
+\begin{remark}[Why this is the right condition]
+  \label{rem:why-kolmogorov}
+  Condition~\eqref{eq:consistency} is exactly the finite-dimensional marginal
+  consistency required by the Kolmogorov extension theorem for a family of measures on
+  cylinder sets of a path space to arise from a single measure on the full (possibly
+  infinite) history space~\cite{Billingsley1995}. A family of history weights that
+  fails~\eqref{eq:consistency} is not merely inconvenient: it is not the restriction of
+  any single measure on histories of unbounded length, and the length-$n$ weights
+  $w_n$ cannot be read as the marginals of one another.
+\end{remark}
+
+\begin{proposition}[The induced valuation is Kolmogorov-consistent]
+  \label{prop:mu-consistent}
+  The family $\{\mu_n\}_n$ of Definition~\ref{def:history} is Kolmogorov-consistent.
+\end{proposition}
+
+\begin{proof}
+  By~\eqref{eq:mu}, $\mu_{n+1}(s \cdot j) = \mu_n(s)\, P_{s_n j}$. Summing over
+  admissible $j$ and using row-stochasticity of $P$,
+  $\sum_j \mu_{n+1}(s\cdot j) = \mu_n(s) \sum_j P_{s_n j} = \mu_n(s)$.
+\end{proof}
+
+Proposition~\ref{prop:mu-consistent} is not the content of this paper: it is immediate
+from the definition of $\mu_n$, and it is recorded only as the baseline against which
+the power-lift family is measured.
+
+\begin{definition}[Power lift]
+  \label{def:lift}
+  For $\alpha > 0$, the \emph{$\alpha$-power lift} of $\{\mu_n\}_n$ is the family
+  $\{\mu_n^\alpha\}_n$, where $\mu_n^\alpha(s) := \mu_n(s)^\alpha$.
+\end{definition}
+
+Because $\mu_n(s)$ is a product, $\mu_n(s)^\alpha = \nu(s_1)^\alpha
+\prod_{k=2}^n P_{s_{k-1}s_k}^\alpha$: the power lift of the path valuation is the same
+object as the valuation induced by the pointwise-lifted kernel $P^\alpha$ (with the
+convention $0^\alpha=0$) and initial law $\nu^\alpha$, up to the overall normalisation
+addressed in Section~\ref{sec:main}. The square-root case $\alpha=1/2$ is the
+canonical candidate for reading $\mu$ as an amplitude modulus, since $\vert \mu^{1/2}
+\vert^2 = \mu$.
+
+\section{The Refinement-Consistency Theorem}
+\label{sec:main}
+
+\begin{lemma}[Elementary power comparison]
+  \label{lem:power-compare}
+  Let $x \in [0,1]$ and $\alpha>0$, $\alpha \ne 1$.
+  \begin{enumerate}[label=(\roman*)]
+    \item If $0<\alpha<1$, then $x^\alpha \ge x$, with equality iff $x \in \{0,1\}$.
+    \item If $\alpha>1$, then $x^\alpha \le x$, with equality iff $x \in \{0,1\}$.
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+  Both statements are trivial at $x \in \{0,1\}$. For $x \in (0,1)$, write
+  $x^\alpha = x \cdot x^{\alpha-1}$. If $0<\alpha<1$ then $\alpha-1<0$, and raising
+  $x\in(0,1)$ to a negative power strictly increases it above~$1$, so
+  $x^{\alpha-1}>1$ and $x^\alpha>x$. If $\alpha>1$ then $\alpha-1>0$, and raising
+  $x \in (0,1)$ to a positive power strictly decreases it below~$1$, so
+  $x^{\alpha-1}<1$ and $x^\alpha<x$.
+\end{proof}
+
+\begin{theorem}[Refinement consistency forces $\alpha=1$]
+  \label{thm:main}
+  Let $(\Sh,M,P)$ be a finite branching system and let $i \in \Sh$ be a branching state
+  in the sense of Definition~\ref{def:system}. Then for every $\alpha>0$, $\alpha\ne1$,
+  \begin{equation}
+    \label{eq:main}
+    \sum_{j:\,M_{ij}=1} P_{ij}^\alpha \;\ne\; 1 \;=\; \sum_{j:\,M_{ij}=1} P_{ij},
+  \end{equation}
+  strictly greater than $1$ if $0<\alpha<1$ and strictly less than $1$ if $\alpha>1$.
+  Consequently the $\alpha$-power-lift family $\{\mu_n^\alpha\}_n$ of
+  Definition~\ref{def:lift} is Kolmogorov-consistent (Definition~\ref{def:consistency})
+  if and only if $\alpha=1$, or the system has no branching state reachable within the
+  histories considered.
+\end{theorem}
+
+\begin{proof}
+  Fix a branching state $i$; write $p_j := P_{ij}$ for the admissible successors
+  $j$, so $p_j \in (0,1]$ for at least two indices $j$ (branching) and possibly
+  $p_j = 0$ for the rest, with $\sum_j p_j = 1$. Applying
+  Lemma~\ref{lem:power-compare} termwise to each $p_j \in [0,1]$ and summing,
+  $\sum_j p_j^\alpha \gtrless \sum_j p_j = 1$ with the direction fixed by whether
+  $\alpha \lessgtr 1$; the inequality is strict because at least two of the $p_j$ lie
+  strictly in $(0,1)$ (branching), and Lemma~\ref{lem:power-compare}'s inequality is
+  strict there. This proves~\eqref{eq:main}.
+
+  For the consequence: by the same computation as
+  Proposition~\ref{prop:mu-consistent} applied to $\mu^\alpha$ in place of $\mu$,
+  \begin{equation*}
+    \sum_{j:\,M_{s_n j}=1} \mu_{n+1}^\alpha(s\cdot j)
+    = \mu_n(s)^\alpha \sum_{j} P_{s_n j}^\alpha .
+  \end{equation*}
+  This equals $\mu_n(s)^\alpha = \mu_n^\alpha(s)$ for every admissible history $s$ with
+  $\mu_n(s)>0$ if and only if $\sum_j P_{s_n j}^\alpha = 1$ for every branching state
+  $s_n$ reachable by such a history; by~\eqref{eq:main} this holds for every $\alpha
+  \ne 1$ only in the degenerate case that no branching state is reachable, and holds
+  unconditionally for $\alpha=1$ by row-stochasticity of $P$.
+\end{proof}
+
+\begin{corollary}[$\mu$ is the unique Kolmogorov-consistent member of its power family]
+  \label{cor:unique}
+  For any finite branching system with at least one branching state reachable by an
+  admissible history of positive $\mu$-valuation, the induced valuation $\mu$ itself is
+  the unique member of $\{\mu^\alpha : \alpha>0\}$ that is Kolmogorov-consistent.
+\end{corollary}
+
+\begin{remark}[What Theorem~\ref{thm:main} does and does not say]
+  \label{rem:scope}
+  Theorem~\ref{thm:main} does not say that a power lift is mathematically
+  ill-defined, nor that no theory can ever use one: it says precisely that the lift
+  fails to be a projective family of measures in the Kolmogorov sense whenever the
+  system branches. A theory that uses $\mu^\alpha$, $\alpha\ne1$, as a physical
+  quantity must therefore either abandon Kolmogorov consistency as a requirement on
+  that quantity --- and justify doing so independently --- or supply a genuinely
+  different construction, not of the pointwise power-lift form of
+  Definition~\ref{def:lift}, that restores it. Neither option is exercised in this
+  paper; see Section~\ref{sec:outlook}.
+\end{remark}
+
+\section{Specialisation: the Heisenberg Shadow Automaton and \textup{H2}}
+\label{sec:h2}
+
+\subsection{The $b$-shadow automaton}
+\label{sec:automaton}
+
+We recall, without re-proof, the finite branching system supplied
+by~\cite{Beau2026tb}. Trajectories are non-backtracking words
+$\gamma=(g_1,\dots,g_n)$ over the Heisenberg generating set
+$S=\{X^{\pm1},Y^{\pm1}\}$, identified with paths $u_0=e$, $u_k=u_{k-1}g_k$ in
+$\Heis$. The \emph{$b$-shadow} emission alphabet is $\Sh=\{0,+,-\}$: $X^{\pm1}$ emit
+$0$, $Y$ emits $+$, $Y^{-1}$ emits $-$. Non-backtracking forbids only the immediate
+letter-inverse pair, which after merging $X,X^{-1}$ into the single class $0$ (a
+bijection of the word language, since it preserves every $b$-emission~\cite{Beau2026tb})
+yields the admissibility matrix
+\begin{equation}
+  \label{eq:M}
+  M \;=\; \begin{pmatrix} 1&1&1\\ 1&1&0\\ 1&0&1 \end{pmatrix},
+  \qquad \text{states ordered } (0,+,-).
+\end{equation}
+The number of length-$n$ shadows is the Pell count $N_b(n)=2N_b(n-1)+N_b(n-2)$,
+$N_b(1)=3$, $N_b(2)=7$~\cite{Beau2026tb}. The matrix $M$ is primitive and symmetric,
+with Perron root and right eigenvector
+\begin{equation}
+  \label{eq:perron}
+  \lambda = 1+\sqrt2, \qquad r = (\sqrt2,\,1,\,1).
+\end{equation}
+The trajectory-branching note proves that $M$, the Pell recurrence, and $\lambda,r$ are
+exact consequences of the non-backtracking word combinatorics; it proves \emph{no}
+normalised transition law, stochastic kernel, or stationary measure on $\Sh$. No such
+law is supplied elsewhere in the deposited corpus either: an exact two-parameter
+counterfamily of primitive, sign-symmetric Markov kernels on the same support gives
+distinct stationary laws, so support, primitivity, and the Pell recurrence alone do not
+select one.
+
+\subsection{Hypothesis \textup{H2}}
+\label{sec:h2-hyp}
+
+\begin{hypothesis}[\textup{H2}: Parry selection, not derived]
+  \label{hyp:h2}
+  The physically realised asymptotic measure on the primitive automaton~\eqref{eq:M} is
+  the unique shift-invariant measure of maximal entropy, equivalently the Parry measure
+  determined by the Perron data~\eqref{eq:perron}~\cite{Parry1964}.
+\end{hypothesis}
+
+Hypothesis~\textup{H2} is used in this paper exactly as stated: a named postulate, not a
+consequence of the automaton's combinatorics, and not derived from any admissibility or
+relaxation result of the wider programme. Under~\textup{H2} alone, the Parry transition
+kernel and stationary law are
+\begin{equation}
+  \label{eq:parry-kernel}
+  P_{ij} = \frac{M_{ij}\,r_j}{\lambda\, r_i}, \qquad
+  \pi_i \propto r_i^2 ,
+\end{equation}
+which evaluate exactly, in the state order $(0,+,-)$, to
+\begin{equation}
+  \label{eq:P-exact}
+  P = \begin{pmatrix}
+    \sqrt2-1 & 1-\tfrac12\sqrt2 & 1-\tfrac12\sqrt2 \\
+    2-\sqrt2 & \sqrt2-1 & 0 \\
+    2-\sqrt2 & 0 & \sqrt2-1
+  \end{pmatrix},
+  \qquad
+  \pi = \Bigl(\tfrac12,\tfrac14,\tfrac14\Bigr).
+\end{equation}
+Every entry of~\eqref{eq:P-exact} lies in $\Qroot$, and direct summation confirms $P$ is
+exactly row-stochastic: for instance
+$(\sqrt2-1)+(1-\tfrac12\sqrt2)+(1-\tfrac12\sqrt2) = 1$ identically in $\Qroot$.
+
+The induced valuation of Definition~\ref{def:history}, under the stationary initial law
+$\nu=\pi$, is $\mu_n(s) = \pi_{s_1}\prod_{k=2}^n P_{s_{k-1}s_k}$, an element of $\Qroot$
+for every admissible shadow $s$.
+
+\subsection{Exact instantiation in $\Qroot$}
+\label{sec:exact-instantiation}
+
+Theorem~\ref{thm:main} already settles, in general terms, that no $\alpha\ne1$ power
+lift of this $\mu$ is Kolmogorov-consistent. We record, independently, an exact
+computation for $\alpha=1/2$ in $\Qroot$, both as a concrete instance and as a
+cross-check of Theorem~\ref{thm:main} by a different method: sign analysis of an exact
+algebraic identity, rather than the elementary order comparison of
+Lemma~\ref{lem:power-compare}.
+
+\begin{proposition}[Exact square-root failure on the shadow automaton]
+  \label{prop:sqrt-fail}
+  For every row $i\in\{0,+,-\}$ of~\eqref{eq:P-exact}, $\sum_j \sqrt{P_{ij}} > 1$
+  strictly.
+\end{proposition}
+
+\begin{proof}
+  Write $x_j=\sqrt{P_{ij}}\ge0$ for the nonzero entries of row $i$. Then
+  \begin{equation}
+    \label{eq:cross}
+    \Bigl(\sum_j x_j\Bigr)^{\!2}
+    = \sum_j x_j^2 + 2\!\!\sum_{j<k} x_j x_k
+    = \sum_j P_{ij} + 2\!\!\sum_{j<k} \sqrt{P_{ij}P_{ik}}
+    = 1 + 2\!\!\sum_{j<k} \sqrt{P_{ij}P_{ik}}.
+  \end{equation}
+  Every row of~\eqref{eq:P-exact} has at least two nonzero entries, so at least one
+  cross term $\sqrt{P_{ij}P_{ik}}$ appears in~\eqref{eq:cross}; each product
+  $P_{ij}P_{ik}$ is a product of two positive elements of $\Qroot$
+  ($\sqrt2-1,\ 1-\tfrac12\sqrt2,\ 2-\sqrt2$ are each positive, exactly checked by the
+  sign test $p^2 \gtrless 2q^2$ on $p+q\sqrt2$), hence itself positive, and the cross
+  term is a strictly positive real number. Thus $(\sum_j x_j)^2 > 1$, and since
+  $\sum_j x_j \ge 0$, $\sum_j x_j > 1$.
+\end{proof}
+
+Proposition~\ref{prop:sqrt-fail} recovers the $\alpha=1/2$ case of
+Theorem~\ref{thm:main} for this specific $P$ by an independent argument, and computes
+it in exact $\Qroot$ arithmetic rather than by the general order comparison.
+
+\section{Endpoint and Shadow Quotients Are Incomparable}
+\label{sec:quotients}
+
+This section records a second, independent structural fact about the automaton, used
+only for the covariance and search analysis of Section~\ref{sec:search} and not for the
+refinement-consistency result of Sections~\ref{sec:branching}--\ref{sec:h2}.
+
+We use the Heisenberg group law and Weil action of the deposited spectral-admissibility
+pipeline~\cite{Beau2026tb,Beau2026a37}:
+\begin{equation}
+  \label{eq:heis-law}
+  (a,b,\gamma)(a',b',\gamma') = (a+a',\,b+b',\,\gamma+\gamma'+ab') \bmod q,
+  \qquad
+  \bigl[\rho_c(a,b,\gamma)f\bigr](x) = \psi_c(\gamma+bx)\,f(x+a),
+\end{equation}
+with generators $X=(1,0,0)$, $Y=(0,1,0)$ and inverses
+$(a,b,\gamma)^{-1}=(-a,-b,ab-\gamma)$.
+
+\begin{definition}[Endpoint and shadow quotients]
+  \label{def:quotients}
+  For an admissible word $\gamma=(g_1,\dots,g_n)$ with path endpoint
+  $u_n=(a_n,b_n,\gamma_n) \in \Heis$ and $b$-shadow $s=(s_1,\dots,s_n)\in\Sh^n$, the
+  \emph{endpoint quotient} is $\pi_{D1}(\gamma):=u_n$ and the \emph{shadow quotient} is
+  $\pi_{\mathrm{shadow}}(\gamma):=s$.
+\end{definition}
+
+\begin{proposition}[Incomparability]
+  \label{prop:incomparable}
+  Neither $\pi_{D1}$ nor $\pi_{\mathrm{shadow}}$ refines the other: there exist words of
+  equal length with the same shadow and distinct endpoints, and words of equal length
+  with the same endpoint and distinct shadows.
+\end{proposition}
+
+\begin{proof}[Proof by exact witness]
+  For the first claim, at $n=1$ the words $X$ and $X^{-1}$ share the shadow $(0)$ and
+  have endpoints $(1,0,0)$ and $(q{-}1,0,0)$ respectively, distinct for every $q>2$.
+
+  For the second claim, take $q=17$. The words
+  $\gamma_1=(X,X,Y,X^{-1})$ and $\gamma_2=(Y^{-1},X,Y,Y)$ are both admissible
+  (non-backtracking) of length~$4$, with shadows
+  $s_1=(0,0,+,0)$ and $s_2=(-,0,+,+)$, $s_1 \ne s_2$. Direct application
+  of~\eqref{eq:heis-law} gives, step by step,
+  \begin{align*}
+    \gamma_1&:\ (0,0,0) \to (1,0,0) \to (2,0,0) \to (2,1,2) \to (1,1,2), \\
+    \gamma_2&:\ (0,0,0) \to (0,16,0) \to (1,16,0) \to (1,0,1) \to (1,1,2),
+  \end{align*}
+  reaching the same endpoint $(1,1,2)$ from distinct shadows.
+\end{proof}
+
+\begin{remark}[Both directions are structurally forced, not accidental]
+  \label{rem:incomparable-why}
+  A fixed shadow class merges every choice of sign for its $0$-emission steps ($X$ vs
+  $X^{-1}$), which changes $a_n$ and, through the cocycle in~\eqref{eq:heis-law},
+  generically $\gamma_n$: the shadow quotient is a genuine coarsening of the endpoint
+  along that axis. Conversely the endpoint retains only $(a_n,b_n,\gamma_n)$, a
+  three-dimensional summary of an $n$-step word, so distinct step orders reaching the
+  same net displacement and swept area are expected generically for $n$ large enough;
+  Proposition~\ref{prop:incomparable} exhibits this already at $n=4$.
+\end{remark}
+
+\section{Covariance and a Bounded Exact Cancellation Search}
+\label{sec:search}
+
+\subsection{The uniform-probe phase diagnostic}
+
+On the uniform probe, the action in~\eqref{eq:heis-law} gives
+$\rho_c(a,b,\gamma)|\mathrm{unif}\rangle = \psi_c(\gamma)\,e_{cb}$, a global phase
+$\psi_c(\gamma)$ times the character $e_{cb}$. For two admissible words sharing the
+same final $b_n$ (hence the same character direction), the relative phase of their
+uniform-probe amplitudes is $\psi_c(\gamma_n-\gamma_n')$, an exact $q$-th root of
+unity.
+
+\begin{proposition}[Conjugate covariance]
+  \label{prop:conjugate}
+  $\psi_{q-c}(\gamma) = \overline{\psi_c(\gamma)}$ for every $\gamma$. Consequently any
+  exact vanishing of a weighted sum $\sum_h \mu_n(h)\,\psi_c(\gamma_n(h))$ over a fixed
+  co-$b_n$ class holds for character $c$ if and only if it holds for the conjugate
+  character $q-c$.
+\end{proposition}
+
+\begin{proof}
+  $\psi_{q-c}(\gamma)=e^{2\pi i (q-c)\gamma/q}=e^{2\pi i\gamma}e^{-2\pi ic\gamma/q}
+  =\overline{\psi_c(\gamma)}$ since $\gamma\in\Z$. The stated sum for character $q-c$ is
+  therefore the complex conjugate of the sum for $c$, and a complex number vanishes iff
+  its conjugate does.
+\end{proof}
+
+\begin{proposition}[Generator-relabelling covariance]
+  \label{prop:relabel}
+  Relabelling $X\leftrightarrow X^{-1}$ throughout an admissible word leaves its
+  $b$-shadow, and hence its induced valuation $\mu_n$, exactly unchanged.
+\end{proposition}
+
+\begin{proof}
+  Both $X$ and $X^{-1}$ emit the same shadow symbol $0$, and the relabelling is a
+  bijection of the non-backtracking word language~\cite{Beau2026tb}: it maps admissible
+  words to admissible words letter by letter, without altering any emission.
+\end{proof}
+
+\subsection{An exact cancellation criterion}
+
+\begin{lemma}[Cyclotomic vanishing over $\Qroot$, $q=17$]
+  \label{lem:cyclotomic}
+  Let $q=17$ and let $\zeta$ be a primitive $q$-th root of unity. For coefficients
+  $c_0,\dots,c_{q-1} \in \Qroot$,
+  \begin{equation}
+    \label{eq:cyclotomic}
+    \sum_{k=0}^{q-1} c_k \zeta^k = 0
+    \qquad \Longleftrightarrow \qquad
+    c_0=c_1=\cdots=c_{q-1}.
+  \end{equation}
+\end{lemma}
+
+\begin{proof}
+  Since $q=17$ is prime, the minimal polynomial of $\zeta$ over $\Q$ is the cyclotomic
+  polynomial $\Phi_{17}(x)=1+x+\cdots+x^{16}$, of degree $q-1=16=[\Q(\zeta):\Q]$; the
+  unique $\Q$-linear relation among $1,\zeta,\dots,\zeta^{16}$ is (a scalar multiple of)
+  $\Phi_{17}(\zeta)=0$. The Galois group $\mathrm{Gal}(\Q(\zeta)/\Q)$ is cyclic of order
+  $16$, so $\Q(\zeta)$ has a unique quadratic subfield, namely $\Q(\sqrt{q^*})$ with
+  $q^*=(-1)^{(q-1)/2}q$; for $q=17$, $(q-1)/2=8$ is even, so $q^*=17$ and the subfield
+  is $\Q(\sqrt{17})$, not $\Qroot$. Since $[\Qroot:\Q]=2$ is prime and $\Qroot \not\subset
+  \Q(\zeta)$, the intersection $\Qroot \cap \Q(\zeta)$ is exactly $\Q$; as $\Q(\zeta)/\Q$
+  is Galois, this makes $\Qroot$ and $\Q(\zeta)$ linearly disjoint over $\Q$, so
+  $[\Qroot(\zeta):\Qroot]=[\Q(\zeta):\Q]=16$ and $\zeta$ retains the same minimal
+  polynomial $\Phi_{17}$ over $\Qroot$. Hence the only $\Qroot$-linear relation among
+  $1,\zeta,\dots,\zeta^{16}$ is again the all-ones relation, up to a scalar in $\Qroot$,
+  proving~\eqref{eq:cyclotomic}.
+\end{proof}
+
+\subsection{Bounded exact search}
+
+Using Lemma~\ref{lem:cyclotomic}, exact cancellation of the weighted uniform-probe sum
+$\sum_h \mu_n(h)\,\psi_c(\gamma_n(h))$ over a class of admissible histories sharing a
+final $b_n$ is decided by grouping the class's $\mu_n$-weights by residue
+$k=(c\gamma_n) \bmod q$ and checking whether the resulting $q$ coefficients (padding
+absent residues with $0$) are all equal.
+
+\begin{proposition}[Bounded negative search result]
+  \label{prop:search}
+  For $q=17$, $c=1$, and all admissible words of length $n \le 8$ ($13120$ words
+  total), there are $64$ classes of $\ge2$ words sharing a final $b_n$; $62$ of these
+  carry more than one distinct value of $\gamma_n \bmod q$ among their members (a
+  genuine, non-vacuous relative phase); and among all $64$ classes, exact vanishing in
+  the sense of Lemma~\ref{lem:cyclotomic} occurs in none.
+\end{proposition}
+
+\begin{proof}[Computational certification]
+  Exhaustive exact enumeration; see Section~\ref{sec:certification}.
+\end{proof}
+
+\begin{remark}[Reading Proposition~\ref{prop:search}]
+  \label{rem:search-reading}
+  This is a calibrated negative result on a bounded range, not a claim of non-existence
+  at every $n$: it states that exact destructive cancellation among co-endpoint
+  admissible histories, weighted by the~\textup{H2} valuation, does not occur for
+  $n\le8$ at $q=17$, despite genuine relative phase being present in $62$ of the $64$
+  qualifying classes.
+\end{remark}
+
+\section{Computational Certification}
+\label{sec:certification}
+
+One script is archived with this note, in \texttt{code/}, using exact arithmetic
+throughout (Python's \texttt{fractions.Fraction} and a stdlib-only $\Qroot$ class; no
+floating-point computation enters any claim of this paper) and no third-party
+dependency.
+
+\texttt{history\_measure\_enumeration.py} certifies: the exact row-stochasticity of $P$
+in~\eqref{eq:P-exact}; the exact positive-cross-term proof of
+Proposition~\ref{prop:sqrt-fail} for all three rows of $P$; enumeration of all $13120$
+non-backtracking words of length $n \le 8$ over $\Heis(\Z/17\Z)$, their exact endpoints
+and shadows; both witnesses of Proposition~\ref{prop:incomparable} (found by exhaustive
+search over the enumerated set, then re-verified by hand against~\eqref{eq:heis-law}
+step by step); the exact cyclotomic-vanishing search of
+Proposition~\ref{prop:search} for $c=1$ and, independently, for the conjugate
+$c=16=q-c$, confirming Proposition~\ref{prop:conjugate}'s predicted covariance of the
+vanishing pattern; and the shadow-invariance of Proposition~\ref{prop:relabel} for all
+$13120$ enumerated words. All assertions pass; no numerical claim in this paper exceeds
+what the script checks.
+
+\section{Limits, Non-Claims, and Outlook}
+\label{sec:outlook}
+
+The following are explicitly \emph{not} established by this paper, restated here for
+clarity alongside Section~\ref{sec:claims}:
+
+\begin{itemize}
+  \item \textbf{No Born rule.} No map from a valuation, a lift, or a coherent sum to an
+  observable probability is proposed or used anywhere in this paper.
+  \item \textbf{No complex-carrier claim.} The uniform-probe phase diagnostic of
+  Section~\ref{sec:search} uses the deposited Weil action of~\cite{Beau2026tb} as
+  supplied; this paper derives none of its complex structure and makes no claim that
+  this structure is physically selected.
+  \item \textbf{No coherent-sum construction.} Proposition~\ref{prop:search} is a
+  negative existence search on a bounded range, not the construction or endorsement of
+  any canonical coherent sum on any quotient of Section~\ref{sec:quotients}.
+  \item \textbf{\textup{H2} is a postulate, not a theorem.} Every result of
+  Sections~\ref{sec:h2}--\ref{sec:search} is conditional on Hypothesis~\ref{hyp:h2} and
+  must be read with that conditionality attached; Section~\ref{sec:main}'s Theorem
+  \ref{thm:main} alone is unconditional, general, and independent of \textup{H2}.
+  \item \textbf{No re-derivation of $D4$.} The equivalence, for a generic probe on the
+  pre-saturation window, of the shadow quotient and the canonical projective
+  distinguishability channel of~\cite{Beau2026tb} is cited from that paper's own
+  theorem and not reproduced here.
+\end{itemize}
+
+Theorem~\ref{thm:main} and Corollary~\ref{cor:unique} constrain, rather than foreclose,
+any future construction of an amplitude modulus for a finite branching system. By
+Remark~\ref{rem:scope}, such a construction must either be something other than a
+pointwise power lift of the branching valuation, or must explicitly abandon Kolmogorov
+consistency as a requirement and justify that choice on independent grounds; a
+construction that silently assumes both the branching valuation \emph{and} its
+Kolmogorov consistency \emph{and} a nonlinear lift of it is assuming something that
+Theorem~\ref{thm:main} shows cannot hold together. This is the precise sense in which
+the present obstruction is a necessary condition on, not a substitute for, any future
+resolution of the amplitude-modulus question this paper's motivating context leaves
+open~\cite{Beau2026steft}.
+
+\subsection*{Acknowledgements}
+Portions of the analysis and editorial preparation benefited from iterative
+interactions with large language models used as analytical assistants. All claims and
+final formulations remain the sole responsibility of the author.
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{cosmochrony-bibliography,external-refs}
+
+\end{document}
